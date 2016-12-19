@@ -6,7 +6,7 @@ package com.example.vajiraprabuddhaka.edcrs.data.control;
 
 //this is a model for simple database which stores details about colleges colleges, This must be modify for our task
 public class Config {
-        public static final String DATA_URL = "http://192.168.165.1/College/getData.php?id=";
+        public static final String DATA_URL = "http://10.8.108.1/College/getData.php?id=";
         public static final String KEY_NAME = "name";
         public static final String KEY_ADDRESS = "address";
         public static final String KEY_VC = "vc";
