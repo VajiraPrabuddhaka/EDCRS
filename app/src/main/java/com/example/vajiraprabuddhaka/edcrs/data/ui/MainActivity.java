@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import com.example.vajiraprabuddhaka.edcrs.R;
 
+
 public class MainActivity extends AppCompatActivity {
     Button search;
     Button signin;
@@ -35,8 +36,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent2);
             }
         });
-
-
 
 
     }
