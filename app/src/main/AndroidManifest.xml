@@ -15,17 +15,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".data.ui.MainActivity">
+
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login" />
+        <activity android:name=".data.ui.SearchActivity" />
+        <activity android:name=".data.ui.LoginActivity" />
+        <activity android:name=".data.ui.Main1Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login" />
-        <activity android:name=".data.ui.SearchActivity" />
-        <activity android:name=".data.ui.LoginActivity"></activity>
     </application>
 
 </manifest>
