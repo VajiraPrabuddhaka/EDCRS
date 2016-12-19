@@ -6,8 +6,6 @@ import android.os.Bundle;
 
 import com.example.vajiraprabuddhaka.edcrs.R;
 
-
-
 public class Main1Activity extends AppCompatActivity {
 
     @Override
