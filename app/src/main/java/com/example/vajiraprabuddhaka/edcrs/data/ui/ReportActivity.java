@@ -9,24 +9,44 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import com.example.vajiraprabuddhaka.edcrs.R;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class ReportActivity extends AppCompatActivity {
-    private String[] nameID;
+    private String[] districts;
+    private String[] cities;
     private String[] types;
     private String[] diseases;
 
     private String currentType;
     private String currentDisease;
+    private String currentDistrict;
+    private String currentCity;
 
     private DiseaseAutoFill diseaseAutoFill;
-    private NameAutoFill nameAutoFill;
+    private DetailAutoFill detailAutoFill;
 
     private AutoCompleteTextView diseaseType;
     private AutoCompleteTextView diseaseName;
-    private AutoCompleteTextView patientName;
+    private EditText patientName;
+    private AutoCompleteTextView district;
+    private AutoCompleteTextView city;
+    private EditText age;
+
+    private CheckBox male;
+    private CheckBox female;
 
     private Button addPatient;
 
@@ -37,7 +57,10 @@ public class ReportActivity extends AppCompatActivity {
 
         diseaseName = (AutoCompleteTextView) findViewById(R.id.diseaseName);
         diseaseType = (AutoCompleteTextView) findViewById(R.id.diseaseType);
-        patientName = (AutoCompleteTextView) findViewById(R.id.patientName);
+        patientName = (EditText) findViewById(R.id.name);
+        district = (AutoCompleteTextView) findViewById(R.id.district);
+        city = (AutoCompleteTextView) findViewById(R.id.city);
+        age = (EditText) findViewById(R.id.age);
 
         diseaseAutoFill = new DiseaseAutoFill();
         diseaseAutoFill.populateTypes();
@@ -46,7 +69,7 @@ public class ReportActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>
                 (this, android.R.layout.simple_dropdown_item_1line, types);
         diseaseType.setAdapter(adapter1);
-        diseaseType.setThreshold(3);
+        diseaseType.setThreshold(1);
 
         diseaseName.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -66,16 +89,58 @@ public class ReportActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>
                 (this, android.R.layout.simple_dropdown_item_1line, diseases);
         diseaseName.setAdapter(adapter2);
-        diseaseName.setThreshold(3);
+        diseaseName.setThreshold(1);
 
-        nameAutoFill = new NameAutoFill();
-        nameAutoFill.populateData();
-        nameID = nameAutoFill.getNameID();
+        detailAutoFill = new DetailAutoFill();
+        detailAutoFill.populateDistricts();
+        districts = detailAutoFill.getDistrict();
 
         ArrayAdapter<String> adapter3 = new ArrayAdapter<String>
-                (this, android.R.layout.simple_dropdown_item_1line, nameID);
-        patientName.setAdapter(adapter3);
-        patientName.setThreshold(3);
+                (this, android.R.layout.simple_dropdown_item_1line, districts);
+        district.setAdapter(adapter3);
+        district.setThreshold(0);
+
+        city.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                currentDistrict = district.getText().toString();
+                if(currentDistrict.equals("") || Arrays.asList(districts).contains(currentDistrict)){
+                    Toast.makeText(getApplicationContext(), "Please enter a valid District", Toast.LENGTH_SHORT);
+                    district.getText().clear();
+                    district.setHintTextColor(Color.RED);
+                }
+
+            }
+        });
+
+        detailAutoFill.populateCities(currentDistrict);
+        cities = detailAutoFill.getCity();
+
+        ArrayAdapter<String> adapter4 = new ArrayAdapter<String>
+                (this, android.R.layout.simple_dropdown_item_1line, cities);
+        city.setAdapter(adapter4);
+        city.setThreshold(0);
+
+        male = (CheckBox) findViewById(R.id.male);
+        female = (CheckBox) findViewById(R.id.female);
+
+        male.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(male.isChecked()) female.setEnabled(false);
+                else female.setEnabled(true);
+            }
+        });
+
+        female.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(female.isChecked()) male.setEnabled(false);
+                else male.setEnabled(true);
+            }
+        });
+
+        int ageInt;
 
         addPatient = (Button) findViewById(R.id.addPatient);
         addPatient.setOnClickListener(new View.OnClickListener() {
@@ -83,8 +148,18 @@ public class ReportActivity extends AppCompatActivity {
             public void onClick(View v) {
                 currentDisease = diseaseName.getText().toString();
                 currentType = diseaseType.getText().toString();
+                currentDistrict = district.getText().toString();
+                currentCity = city.getText().toString();
+                try {
+                    Integer.getInteger(age.getText().toString());
+                }
+                catch (Exception e) {Toast.makeText(getApplicationContext(), "Invalid Age. Only use numbers", Toast.LENGTH_SHORT).show();
+                    age.getText().clear();
+                    age.setHintTextColor(Color.RED);
+                    age.setHint("Age (Eg: 22)");
+                    return;}
 
-                if(currentDisease.equals("") || currentType.equals("")){
+                if((currentDisease.equals("") || currentType.equals("")) && Integer.getInteger(age.getText().toString())<110){
                     Toast.makeText(getApplicationContext(), "Please enter a Disease and Type of disease", Toast.LENGTH_LONG).show();
                     diseaseName.setHintTextColor(Color.RED);
                     diseaseType.setHintTextColor(Color.RED);

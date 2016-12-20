@@ -38,15 +38,37 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <AutoCompleteTextView
+    <EditText
         android:hint="Patient Name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/name"
+        android:layout_marginTop="29dp"
         android:layout_below="@+id/details"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="61dp"
-        android:id="@+id/patientName" />
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Age"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/age"
+        android:layout_below="@+id/name"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textCapCharacters|number"
+        android:hint="National Identity Number"
+        android:ems="10"
+        android:id="@+id/patientID"
+        android:layout_below="@+id/age"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:text="Continue"
@@ -56,6 +78,48 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="11dp"
         android:id="@+id/addPatient" />
+
+    <AutoCompleteTextView
+        android:hint="District"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/patientID"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/district" />
+
+    <AutoCompleteTextView
+        android:hint="City"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/district"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/city" />
+
+    <CheckBox
+        android:text="Male"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/city"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/male"
+        android:textSize="18sp" />
+
+    <CheckBox
+        android:text="Female"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/female"
+        android:layout_below="@+id/city"
+        android:layout_toRightOf="@+id/male"
+        android:layout_toEndOf="@+id/male"
+        android:layout_marginLeft="33dp"
+        android:layout_marginStart="33dp"
+        android:textSize="18sp" />
+
+
 
 
 </RelativeLayout>
