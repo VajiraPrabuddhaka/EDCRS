@@ -4,8 +4,8 @@ package com.example.vajiraprabuddhaka.edcrs.data.ui;
 import java.util.List;
 
 public class DiseaseAutoFill {
-    private String[] types;
-    private String[] diseases;
+    private String[] types={"Leg","Brain"};
+    private String[] diseases={"Pissu", "Gon", "Meti"};
 
     /*public DiseaseAutoFill(){
         types = "";

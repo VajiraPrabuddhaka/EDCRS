@@ -2,8 +2,8 @@ package com.example.vajiraprabuddhaka.edcrs.data.ui;
 
 
 public class DetailAutoFill {
-    private String[] city;
-    private String[] district;
+    private String[] city={"Kurunegala", "Gampaha", "A' Puraya"};
+    private String[] district={"Kurunegala", "Gampaha", "A'pura"};
     private String[] ageGroup = {"1-12 months","1-5 yrs","6-12 yrs","13-20 yrs","21-60 yrs", "Above 60 yrs"};
 
     public String[] getCity() {
@@ -24,6 +24,7 @@ public class DetailAutoFill {
 
     public void populateCities(String district){
         //my sql
+
     }
     public void populateDistricts(){
         //get from sql
