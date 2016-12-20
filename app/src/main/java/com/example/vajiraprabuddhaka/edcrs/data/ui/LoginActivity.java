@@ -26,10 +26,13 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
+        signUp = (Button)findViewById(R.id.signup) ;
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(LoginActivity.this,ReportActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -37,13 +40,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean login(){
-        //this method should return if the login successfull else return false
+        //this method should return true if the login successful else return false
         return true;
     }
 
     private boolean signup(){
         //for signup people should have internet connection
-        //this method should return true if the signup successfull
+        //this method should return true if the signup successful
         return true;
     }
 }
