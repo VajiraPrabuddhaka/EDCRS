@@ -12,17 +12,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ExpandableListAdapter;
-import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import com.example.vajiraprabuddhaka.edcrs.R;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class ReportActivity extends AppCompatActivity {
     private String[] districts;
@@ -57,7 +51,7 @@ public class ReportActivity extends AppCompatActivity {
 
         diseaseName = (AutoCompleteTextView) findViewById(R.id.diseaseName);
         diseaseType = (AutoCompleteTextView) findViewById(R.id.diseaseType);
-        patientName = (EditText) findViewById(R.id.name);
+        patientName = (EditText) findViewById(R.id.fname);
         district = (AutoCompleteTextView) findViewById(R.id.district);
         city = (AutoCompleteTextView) findViewById(R.id.city);
         age = (EditText) findViewById(R.id.age);
