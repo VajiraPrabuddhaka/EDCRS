@@ -1,5 +1,7 @@
 package com.example.vajiraprabuddhaka.edcrs.data.ui;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,11 +9,12 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.vajiraprabuddhaka.edcrs.R;
+import com.example.vajiraprabuddhaka.edcrs.data.control.SaveSharedPreference;
 
 
 public class MainActivity extends AppCompatActivity {
     Button search;
-    Button signin;
+    Button login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +22,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         search = (Button) findViewById(R.id.diseaseSearch);
-        signin = (Button) findViewById(R.id.login);
+         login = (Button) findViewById(R.id.login);
+
 
         search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -29,11 +33,52 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        signin.setOnClickListener(new View.OnClickListener() {
+        login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2 = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent2);
+
+
+                if(SaveSharedPreference.getUserName(MainActivity.this).length() == 0)
+                {
+                    // call Login Activity
+                    /*
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setMessage("Please login first")
+                            .setCancelable(false)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    //do things
+                                    Intent intent2 = new Intent(MainActivity.this, LoginActivity.class);
+                                    startActivity(intent2);
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                    */
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setMessage("Yor are not logged in. Please login to continue!")
+                            .setCancelable(false)
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Intent intent2 = new Intent(MainActivity.this, LoginActivity.class);
+                                    startActivity(intent2);
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
+                else
+                {
+                    // Stay at the current activity.
+                    Intent intent = new Intent(MainActivity.this, Main1Activity.class);
+                    startActivity(intent);
+                }
+
             }
         });
 
