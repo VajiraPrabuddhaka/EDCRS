@@ -1,11 +1,17 @@
 package com.example.vajiraprabuddhaka.edcrs.data.ui;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +34,18 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private TextView textViewResult;
 
     private ProgressDialog loading;
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu, menu);
+
+
+
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
