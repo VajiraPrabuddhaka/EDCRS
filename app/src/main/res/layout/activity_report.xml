@@ -9,25 +9,117 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.vajiraprabuddhaka.edcrs.data.ui.ReportActivity">
-
-    <TextView
-        android:text="Disease Name:"
-        android:layout_width="wrap_content"
+    <AutoCompleteTextView
+        android:hint="Type of Disease"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="33dp"
-        android:id="@+id/textView3"
         android:layout_alignParentTop="true"
+        android:id="@+id/diseaseType"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <AutoCompleteTextView
+        android:hint="Disease Name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/diseaseName"
+        android:layout_below="@+id/diseaseType"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:inputType="textMultiLine"
         android:ems="10"
-        android:id="@+id/editText"
-        android:layout_marginTop="16dp"
-        android:layout_below="@+id/textView3"
+        android:id="@+id/details"
+        android:hint="More Details"
+        android:layout_below="@+id/diseaseName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <EditText
+        android:hint="Patient Name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/name"
+        android:layout_marginTop="29dp"
+        android:layout_below="@+id/details"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Age"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/age"
+        android:layout_below="@+id/name"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textCapCharacters|number"
+        android:hint="National Identity Number"
+        android:ems="10"
+        android:id="@+id/patientID"
+        android:layout_below="@+id/age"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Continue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="11dp"
+        android:id="@+id/addPatient" />
+
+    <AutoCompleteTextView
+        android:hint="District"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/patientID"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/district" />
+
+    <AutoCompleteTextView
+        android:hint="City"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/district"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/city" />
+
+    <CheckBox
+        android:text="Male"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/city"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/male"
+        android:textSize="18sp" />
+
+    <CheckBox
+        android:text="Female"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/female"
+        android:layout_below="@+id/city"
+        android:layout_toRightOf="@+id/male"
+        android:layout_toEndOf="@+id/male"
+        android:layout_marginLeft="33dp"
+        android:layout_marginStart="33dp"
+        android:textSize="18sp" />
+
+
+
+
 </RelativeLayout>
