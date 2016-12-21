@@ -25,9 +25,11 @@ public class DBsyncController extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase database) {
         String query;
-        query = "CREATE TABLE users ( userId INTEGER PRIMARY KEY, userName TEXT, udpateStatus TEXT)";
+        query = "CREATE TABLE IF NOT EXISTS diseases ( disease_name TEXT PRIMARY KEY, disease_type TEXT, description TEXT, update_type TEXT)";
         database.execSQL(query);
     }
+
+    //this method calls when alter table executed
     @Override
     public void onUpgrade(SQLiteDatabase database, int version_old, int current_version) {
         String query;
@@ -39,10 +41,10 @@ public class DBsyncController extends SQLiteOpenHelper {
      * Inserts User into SQLite DB
      * @param queryValues
      */
-    public void insertUser(HashMap<String, String> queryValues) {
+    public void insertDisease(HashMap<String, String> queryValues) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("userName", queryValues.get("userName"));
+        values.put("disease_name", queryValues.get("userName"));
         values.put("udpateStatus", "no");
         database.insert("users", null, values);
         database.close();
@@ -52,10 +54,10 @@ public class DBsyncController extends SQLiteOpenHelper {
      * Get list of epedemic deseases from SQLite DB as Array List
      * @return
      */
-    public ArrayList<HashMap<String, String>> getAllUsers() {
+    public ArrayList<HashMap<String, String>> getAllDiseases() {
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM users";
+        String selectQuery = "SELECT  * FROM diseases";
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -77,14 +79,15 @@ public class DBsyncController extends SQLiteOpenHelper {
     public String composeJSONfromSQLite(){
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM users where udpateStatus = '"+"no"+"'";
+        String selectQuery = "SELECT  * FROM diseases where udpateStatus = '"+"no"+"'";
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
                 HashMap<String, String> map = new HashMap<String, String>();
-                map.put("userId", cursor.getString(0));
-                map.put("userName", cursor.getString(1));
+                map.put("disease_name", cursor.getString(0));
+                map.put("disease_type", cursor.getString(1));
+                map.put("description", cursor.getString(2));
                 wordList.add(map);
             } while (cursor.moveToNext());
         }
@@ -114,7 +117,7 @@ public class DBsyncController extends SQLiteOpenHelper {
      */
     public int dbSyncCount(){
         int count = 0;
-        String selectQuery = "SELECT  * FROM users where udpateStatus = '"+"no"+"'";
+        String selectQuery = "SELECT  * FROM disease where udpateStatus = '"+"no"+"'";
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         count = cursor.getCount();
@@ -129,7 +132,7 @@ public class DBsyncController extends SQLiteOpenHelper {
      */
     public void updateSyncStatus(String id, String status){
         SQLiteDatabase database = this.getWritableDatabase();
-        String updateQuery = "Update users set udpateStatus = '"+ status +"' where userId="+"'"+ id +"'";
+        String updateQuery = "Update disease set udpateStatus = '"+ status +"' where userId="+"'"+ id +"'";
         Log.d("query",updateQuery);
         database.execSQL(updateQuery);
         database.close();

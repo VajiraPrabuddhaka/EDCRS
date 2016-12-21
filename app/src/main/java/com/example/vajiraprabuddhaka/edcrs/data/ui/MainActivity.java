@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                if(SaveSharedPreference.getUserName(MainActivity.this).length() != 0)
+                if(SaveSharedPreference.getUserName(MainActivity.this).length() == 0)
                 {
                     // call Login Activity
                     /*
