@@ -14,7 +14,8 @@
         android:layout_marginTop="22dp"
         android:id="@+id/diseaseName"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:imeOptions="actionNext"/>
 
     <AutoCompleteTextView
         android:layout_width="match_parent"
@@ -25,7 +26,8 @@
         android:layout_below="@+id/diseaseName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/district" />
+        android:id="@+id/district"
+        android:imeOptions="actionNext"/>
 
     <AutoCompleteTextView
         android:layout_width="match_parent"
@@ -36,7 +38,8 @@
         android:layout_below="@+id/district"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/city" />
+        android:id="@+id/city"
+        android:imeOptions="actionDone"/>
 
     <Button
         android:text="Continue"

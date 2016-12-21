@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.example.vajiraprabuddhaka.edcrs.R;
 
@@ -78,18 +79,22 @@ public class Main1Activity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        TextView textView = (TextView) findViewById(R.id.textView3);
         if (id == R.id.addPatient) {
-            AddPatient addPatient = new AddPatient();
+            textView.setVisibility(View.GONE);
+            AddPatient addPatient = AddPatient.newInstance("1", "2");
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.relativelayout_for_fragment, addPatient, addPatient.getTag()).commit();
         } else if (id == R.id.addDisease) {
+            textView.setVisibility(View.GONE);
             AddDisease addDisease = AddDisease.newInstance("1", "2");
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.relativelayout_for_fragment, addDisease, addDisease.getTag()).commit();
         } else if (id == R.id.logOut) {
+            textView.setVisibility(View.GONE);
             Intent intent = new Intent(Main1Activity.this, LoginActivity.class);
             startActivity(intent);
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
