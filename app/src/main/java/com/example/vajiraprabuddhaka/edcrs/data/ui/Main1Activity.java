@@ -20,17 +20,13 @@ import com.example.vajiraprabuddhaka.edcrs.R;
 public class Main1Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, AddDisease.OnFragmentInteractionListener, AddPatient.OnFragmentInteractionListener {
 
+    int officer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main1);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        /*if(true) {
-            navigationView = (NavigationView) findViewById(R.id.nav_view);
-            Menu addPatientMenu = navigationView.getMenu();
-            addPatientMenu.findItem(R.id.addPatient).setEnabled(false);
-        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -40,6 +36,16 @@ public class Main1Activity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Bundle b = getIntent().getExtras();
+
+        if(b!=null)
+            officer = b.getInt("officer");
+
+        if(officer==2){
+            Menu nav_menu = navigationView.getMenu();
+            nav_menu.findItem(R.id.addPatient).setEnabled(false);
+        }
     }
 
     @Override
