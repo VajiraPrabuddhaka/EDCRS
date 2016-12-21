@@ -28,7 +28,7 @@ import org.json.JSONObject;
 import com.example.vajiraprabuddhaka.edcrs.R;
 import com.example.vajiraprabuddhaka.edcrs.data.control.Config;
 
-public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
+public class SearchActivity extends AppCompatActivity {
     private EditText editTextId;
     private Button buttonGet;
     private TextView textViewResult;
@@ -37,70 +37,17 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
 
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.options_menu, menu);
 
         return true;
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        editTextId = (EditText) findViewById(R.id.editTextId);
-        buttonGet = (Button) findViewById(R.id.buttonGet);
-        textViewResult = (TextView) findViewById(R.id.textViewResult);
-
-        buttonGet.setOnClickListener(this);
-    }
-    private void getData() {
-        String id = editTextId.getText().toString().trim();
-        if (id.equals("")) {
-            Toast.makeText(this, "Please enter an id", Toast.LENGTH_LONG).show();
-            return;
-        }
-        loading = ProgressDialog.show(this,"Please wait...","Fetching...",false,false);
-
-        String url = Config.DATA_URL+editTextId.getText().toString().trim();
-
-        StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                loading.dismiss();
-                showJSON(response);
-            }
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(SearchActivity.this,error.getMessage().toString(),Toast.LENGTH_LONG).show();
-                    }
-                });
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
-    }
-    private void showJSON(String response){
-        String name="";
-        String address="";
-        String vc = "";
-        try {
-            JSONObject jsonObject = new JSONObject(response);
-            JSONArray result = jsonObject.getJSONArray(Config.JSON_ARRAY);
-            JSONObject collegeData = result.getJSONObject(0);
-            name = collegeData.getString(Config.KEY_NAME);
-            address = collegeData.getString(Config.KEY_ADDRESS);
-            vc = collegeData.getString(Config.KEY_VC);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        textViewResult.setText("Name:\t"+name+"\nAddress:\t" +address+ "\nVice Chancellor:\t"+ vc);
-    }
-
-    @Override
-    public void onClick(View v) {
-        getData();
     }
 }

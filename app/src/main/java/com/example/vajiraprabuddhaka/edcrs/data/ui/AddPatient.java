@@ -121,7 +121,7 @@ public class AddPatient extends Fragment {
             }
         });
 
-        diseaseAutoFill.populateDiseases(currentDisease);
+        diseaseAutoFill.populateDiseases();
         diseases = diseaseAutoFill.getDiseases();
 
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>
@@ -203,10 +203,21 @@ public class AddPatient extends Fragment {
                     diseaseType.setHintTextColor(Color.RED);
                 }
                 else{
-                    Toast.makeText(AddPatient.this.getActivity(), "Data Successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddPatient.this.getActivity(), "Data Successfully Added", Toast.LENGTH_SHORT).show();
                     //send to sql
-                    Intent intent = new Intent(AddPatient.this.getActivity(), SearchActivity.class);
-                    startActivity(intent);
+                    diseaseName.getText().clear();
+                    diseaseType.getText().clear();
+                    age.getText().clear();
+                    city.getText().clear();
+                    district.getText().clear();
+                    patientName.getText().clear();
+                    male.setChecked(false);
+                    male.setEnabled(true);
+                    female.setChecked(false);
+                    female.setEnabled(true);
+
+                    /*Intent intent = new Intent(AddPatient.this.getActivity(), SearchActivity.class);
+                    startActivity(intent);*/
                 }
             }
         });

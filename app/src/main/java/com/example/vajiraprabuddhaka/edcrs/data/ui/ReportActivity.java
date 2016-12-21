@@ -77,7 +77,7 @@ public class ReportActivity extends AppCompatActivity {
             }
         });
 
-        diseaseAutoFill.populateDiseases(currentDisease);
+        diseaseAutoFill.populateDiseases();
         diseases = diseaseAutoFill.getDiseases();
 
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>

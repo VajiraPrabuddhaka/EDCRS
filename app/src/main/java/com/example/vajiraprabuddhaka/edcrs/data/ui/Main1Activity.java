@@ -1,5 +1,6 @@
 package com.example.vajiraprabuddhaka.edcrs.data.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
@@ -78,9 +79,12 @@ public class Main1Activity extends AppCompatActivity
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.relativelayout_for_fragment, addPatient).commit();
         } else if (id == R.id.addDisease) {
-
+            AddDisease addDisease = new AddDisease();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.relativelayout_for_fragment, addDisease).commit();
         } else if (id == R.id.logOut) {
-
+            Intent intent = new Intent(Main1Activity.this, LoginActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

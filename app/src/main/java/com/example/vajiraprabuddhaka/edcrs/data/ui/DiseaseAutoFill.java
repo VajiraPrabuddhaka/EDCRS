@@ -19,7 +19,7 @@ public class DiseaseAutoFill {
          */
     }
 
-    public void populateDiseases(String type){
+    public void populateDiseases(){
         /*
         * get from sql
         * setDiseases();
