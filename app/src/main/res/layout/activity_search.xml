@@ -16,22 +16,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout">
 
-        <EditText
-            android:id="@+id/editTextId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-        <Button
-            android:id="@+id/buttonGet"
-            android:text="Search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
     </LinearLayout>
-    <TextView
-        android:id="@+id/textViewResult"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/linearLayout" />
 
 </RelativeLayout>
