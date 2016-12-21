@@ -1,6 +1,9 @@
 package com.example.vajiraprabuddhaka.edcrs.data.ui;
 
 
+import android.app.Application;
+import android.widget.Toast;
+
 public class DetailAutoFill {
     private String[] city={"Kurunegala", "Gampaha", "A' Puraya"};
     private String[] district={"Kurunegala", "Gampaha", "A'pura"};
@@ -31,16 +34,12 @@ public class DetailAutoFill {
     }
     public boolean isAlpha(String s){
         char[] chars = s.toCharArray();
-        int x=0;
         for(char c : chars){
-            if(!Character.isLetter(c) || !Character.isSpaceChar(c)){
+            if(!Character.isLetter(c) ){
                 return false;
             }
-            if(Character.isLetter(c)) x = 1;
         }
-
-        if(x>0) return true;
-        return false;
+        return true;
     }
 
 }

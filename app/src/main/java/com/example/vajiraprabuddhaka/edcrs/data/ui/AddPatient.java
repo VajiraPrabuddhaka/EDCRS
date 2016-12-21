@@ -43,6 +43,10 @@ public class AddPatient extends Fragment {
     private String currentDisease;
     private String currentDistrict;
     private String currentCity;
+    private String currentID;
+    private String currentAge;
+    private String currentName;
+    private String details;
 
     private DiseaseAutoFill diseaseAutoFill;
     private DetailAutoFill detailAutoFill;
@@ -52,6 +56,8 @@ public class AddPatient extends Fragment {
     private AutoCompleteTextView district;
     private AutoCompleteTextView city;
     private EditText age;
+    private EditText nID;
+    private EditText moreDetails;
 
     private CheckBox male;
     private CheckBox female;
@@ -95,6 +101,8 @@ public class AddPatient extends Fragment {
         district = (AutoCompleteTextView) view.findViewById(R.id.district);
         city = (AutoCompleteTextView) view.findViewById(R.id.city);
         age = (EditText) view.findViewById(R.id.age);
+        nID = (EditText) view.findViewById(R.id.patientID);
+        moreDetails = (EditText) view.findViewById(R.id.details);
 
         diseaseAutoFill = new DiseaseAutoFill();
         diseaseAutoFill.populateTypes();
@@ -157,7 +165,6 @@ public class AddPatient extends Fragment {
             }
         });
 
-        int ageInt;
 
         addPatient = (Button) view.findViewById(R.id.addPatient);
         addPatient.setOnClickListener(new View.OnClickListener() {
@@ -166,39 +173,46 @@ public class AddPatient extends Fragment {
                 currentDisease = diseaseName.getText().toString().trim();
                 currentDistrict = district.getText().toString().trim();
                 currentCity = city.getText().toString().trim();
-                try {
-                    Integer.getInteger(age.getText().toString().trim());
+                currentID = nID.getText().toString();
+                currentAge = age.getText().toString();
+                currentName = patientName.getText().toString().trim();
+                details = moreDetails.getText().toString().trim();
+                if(detailAutoFill.isAlpha(currentDisease) && !diseaseName.getText().toString().isEmpty()){
+                    if(detailAutoFill.isAlpha(currentCity) && !city.getText().toString().isEmpty()){
+                        if(detailAutoFill.isAlpha(currentDistrict) && !district.getText().toString().isEmpty() && Arrays.asList(districts).contains(currentDistrict)){
+                            if(detailAutoFill.isAlpha(currentName) && !patientName.getText().toString().isEmpty()
+                                    && !currentAge.isEmpty() && !currentID.isEmpty() && currentID.length()>8){
+                                //send to sql
+                                district.getText().clear();
+                                city.getText().clear();
+                                diseaseName.getText().clear();
+                                patientName.getText().clear();
+                                age.getText().clear();
+                                nID.getText().clear();
+                                moreDetails.getText().clear();
+                                Toast.makeText(AddPatient.this.getActivity(), "Disease successfully added", Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                if(currentID.length()<9) {nID.setError("Enter 9 digit NID");}
+                                else if(currentAge.isEmpty()){age.setError("Enter Age");}
+                                else{patientName.setError("Invalid Name");}
+                            }
+                        }
+                        else{
+                            district.getText().clear();
+                            district.setError("Please select a correct District from Dropdown menu");
+                        }
+                    }
+                    else {
+                        city.getText().clear();
+                        city.setError("Please enter a correct City name");
+                    }
                 }
-                catch (Exception e) {Toast.makeText(AddPatient.this.getActivity(), "Invalid Age. Only use numbers", Toast.LENGTH_SHORT).show();
-                    age.getText().clear();
-                    age.setHintTextColor(Color.RED);
-                    age.setHint("Age (Eg: 22)");
-                    return;}
-
-                if(currentDisease.isEmpty()){
-                    Toast.makeText(AddPatient.this.getActivity(), "Please enter a Disease", Toast.LENGTH_LONG).show();
-                    diseaseName.setHintTextColor(Color.RED);
-                }
-                else if(Integer.getInteger(age.getText().toString())<110){
-                    age.getText().clear();
-                    Toast.makeText(AddPatient.this.getActivity(), "Please enter a Valid age in years", Toast.LENGTH_LONG).show();
-                }
-                else{
-                    Toast.makeText(AddPatient.this.getActivity(), "Data Successfully Added", Toast.LENGTH_SHORT).show();
-                    //send to sql
+                else {
                     diseaseName.getText().clear();
-                    age.getText().clear();
-                    city.getText().clear();
-                    district.getText().clear();
-                    patientName.getText().clear();
-                    male.setChecked(false);
-                    male.setEnabled(true);
-                    female.setChecked(false);
-                    female.setEnabled(true);
-
-                    /*Intent intent = new Intent(AddPatient.this.getActivity(), SearchActivity.class);
-                    startActivity(intent);*/
+                    diseaseName.setError("Please enter a correct Disease name");
                 }
+
             }
         });
         return view;

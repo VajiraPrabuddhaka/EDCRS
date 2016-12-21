@@ -15,11 +15,13 @@
 
 
     <TextView
-        android:text="TextView"
+        android:text="Select An Option from the Tab Viewer in the Upper Left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/textView3" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:id="@+id/textView3"
+        android:textSize="18sp"
+        android:textAlignment="center" />
 </RelativeLayout>

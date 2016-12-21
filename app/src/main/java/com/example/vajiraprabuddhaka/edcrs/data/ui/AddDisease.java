@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vajiraprabuddhaka.edcrs.R;
@@ -47,6 +48,7 @@ public class AddDisease extends Fragment {
 
     private DiseaseAutoFill diseaseAutoFill;
     private DetailAutoFill detailAutoFill;
+    private TextView defaultText;
 
     private OnFragmentInteractionListener mListener;
 
@@ -90,7 +92,6 @@ public class AddDisease extends Fragment {
         diseaseName = (AutoCompleteTextView) view.findViewById(R.id.diseaseName);
         district = (AutoCompleteTextView) view.findViewById(R.id.district);
         city = (AutoCompleteTextView) view.findViewById(R.id.city);
-
         diseaseAutoFill = new DiseaseAutoFill();
         diseaseAutoFill.populateDiseases();
         diseases = diseaseAutoFill.getDiseases();
@@ -138,9 +139,9 @@ public class AddDisease extends Fragment {
                 currentCity = city.getText().toString().trim();
                 currentDisease = diseaseName.getText().toString().trim();
 
-                if(detailAutoFill.isAlpha(currentDisease)){
-                    if(detailAutoFill.isAlpha(currentCity)){
-                        if(detailAutoFill.isAlpha(currentDistrict)){
+                if(detailAutoFill.isAlpha(currentDisease) && !diseaseName.getText().toString().isEmpty()){
+                    if(detailAutoFill.isAlpha(currentCity) && !city.getText().toString().isEmpty()){
+                        if(detailAutoFill.isAlpha(currentDistrict) && !district.getText().toString().isEmpty() && Arrays.asList(districts).contains(currentDistrict)){
                             //send to sql
                             district.getText().clear();
                             city.getText().clear();

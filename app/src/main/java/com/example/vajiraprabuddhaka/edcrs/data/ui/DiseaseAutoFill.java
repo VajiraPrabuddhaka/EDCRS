@@ -42,4 +42,14 @@ public class DiseaseAutoFill {
     public void setDiseases(String[] diseases) {
         this.diseases = diseases;
     }
+
+    public boolean isAlpha(String s){
+        char[] chars = s.toCharArray();
+        for(char c : chars){
+            if(!Character.isLetter(c) ){
+                return false;
+            }
+        }
+        return true;
+    }
 }

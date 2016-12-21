@@ -5,65 +5,67 @@
     tools:context="com.example.vajiraprabuddhaka.edcrs.data.ui.AddPatient">
 
     <AutoCompleteTextView
-        android:hint="Type of Disease"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:id="@+id/diseaseType"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <AutoCompleteTextView
         android:hint="Disease Name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textPersonName"
         android:id="@+id/diseaseName"
         android:layout_below="@+id/diseaseType"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:nextFocusForward="@id/fname"
+        android:ems="10"
+        android:imeOptions="actionNext"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:ems="10"
+        android:inputType="textPersonName"
         android:id="@+id/details"
         android:hint="More Details"
+        android:ems="10"
         android:layout_below="@+id/diseaseName"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:imeOptions="actionNext"/>
 
     <EditText
         android:hint="Patient Name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textPersonName"
         android:id="@+id/fname"
         android:layout_marginTop="29dp"
         android:layout_below="@+id/details"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:imeOptions="actionNext"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Age"
         android:inputType="number"
+        android:maxLength="2"
         android:ems="10"
         android:id="@+id/age"
         android:layout_below="@+id/fname"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:imeOptions="actionNext"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textCapCharacters|number"
+        android:inputType="number"
         android:hint="National Identity Number"
+        android:maxLength="9"
         android:ems="10"
         android:id="@+id/patientID"
         android:layout_below="@+id/age"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:imeOptions="actionNext"/>
 
     <Button
         android:text="Continue"
@@ -72,26 +74,29 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="11dp"
-        android:id="@+id/addPatient"
-        android:elevation="0dp" />
+        android:id="@+id/addPatient"/>
 
     <AutoCompleteTextView
         android:hint="District"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/patientID"
+        android:inputType="textPersonName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/district" />
+        android:id="@+id/district"
+        android:imeOptions="actionNext" />
 
     <AutoCompleteTextView
         android:hint="City"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/district"
+        android:inputType="textPersonName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/city" />
+        android:id="@+id/city"
+        android:imeOptions="actionDone"/>
 
     <CheckBox
         android:text="Male"
