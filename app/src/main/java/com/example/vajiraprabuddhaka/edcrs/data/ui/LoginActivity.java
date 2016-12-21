@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -17,6 +18,9 @@ import com.android.volley.toolbox.Volley;
 import com.example.vajiraprabuddhaka.edcrs.R;
 import com.example.vajiraprabuddhaka.edcrs.data.control.Config;
 import com.example.vajiraprabuddhaka.edcrs.data.control.SaveSharedPreference;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -27,6 +31,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText password;
     private ProgressDialog loading;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,14 +40,13 @@ public class LoginActivity extends AppCompatActivity {
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
         login = (Button)findViewById(R.id.login);
+
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (login(v)) {
-                    SaveSharedPreference.setUserName(LoginActivity.this, "vajira");
-                    Intent myintent = new Intent(LoginActivity.this, Main1Activity.class);
-                }
+                login(v);
 
 
             }
@@ -51,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this,ReportActivity.class);
+                Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
                 startActivity(intent);
             }
         });
@@ -59,61 +64,73 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private boolean login(View v){
+    private void login(View v){
         //this method should return true if the login successful else return false
         String userName = username.getText().toString().trim();
         String passWord = password.getText().toString().trim();
-        switch (v.getId()) {
-            case R.id.login:
+
 
 
 
                 if (userName.isEmpty()) {
                     username.setError("Please enter username");
-                    return false;
+                    Toast.makeText(LoginActivity.this, "Start", Toast.LENGTH_SHORT);
 
                 }
 
                 if (passWord.isEmpty()) {
                     password.setError("Please enter password");
-                    return false;
+
+                }
+                if(!userName.isEmpty() && !passWord.isEmpty()) {
+                    Toast.makeText(LoginActivity.this, "Start", Toast.LENGTH_SHORT);
+                    getLogin(userName,passWord);
                 }
 
-                //cleanUp();
-                break;
-        }
-        if (getLoginData(userName,passWord).equals("Successful")){
-            return true;
-        }
-        else{
-            return false;
-        }
+
+
+
     }
 
-    private String getLoginData(String username, String password) {
-        //please make sure that username and password are not empty i.e ""
+    private void getLogin(final String username, final String password) {
 
-        loading = ProgressDialog.show(this,"Please wait...","Fetching...",false,false);
-        String url = "proper url should be put here";
-
-        StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
+        RequestQueue MyRequestQueue = Volley.newRequestQueue(this);
+        Toast.makeText(LoginActivity.this, "Connection1", Toast.LENGTH_SHORT);
+        StringRequest MyStringRequest = new StringRequest(Request.Method.POST, "http://192.168.153.1:100/EDCRS-PHP/LoginDataPost.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                loading.dismiss();
+                Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
+                if (response.equals("Login Successful!")) {
+                    Toast.makeText(LoginActivity.this, "correct Password", Toast.LENGTH_LONG).show();
+                    SaveSharedPreference.setUserName(LoginActivity.this, username);
+                    Intent myintent = new Intent(LoginActivity.this, Main1Activity.class);
+                    startActivity(myintent);
 
+                }
+                else{
+                    Toast.makeText(LoginActivity.this, "Invalid login", Toast.LENGTH_LONG).show();
+
+                }
+                //This code is executed if the server responds, whether or not the response contains data.
+                //The String 'response' contains the server's response.
             }
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(LoginActivity.this,error.getMessage().toString(),Toast.LENGTH_LONG).show();
-                    }
-                });
+        }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(LoginActivity.this, "Connection Problem", Toast.LENGTH_SHORT);
+                //This code is executed if there is an error.
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> MyData = new HashMap<String, String>();
+                MyData.put("id", username);
+                MyData.put("password",password);//Add the data you'd like to send to the server.
+                return MyData;
+            }
+        };
 
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
-        return null;
+        MyRequestQueue.add(MyStringRequest);
     }
 
     private boolean signup(){
