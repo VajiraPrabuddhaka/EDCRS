@@ -1,6 +1,7 @@
 package com.example.vajiraprabuddhaka.edcrs.data.ui;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
@@ -16,7 +17,7 @@ import android.view.MenuItem;
 import com.example.vajiraprabuddhaka.edcrs.R;
 
 public class Main1Activity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, AddDisease.OnFragmentInteractionListener, AddPatient.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +25,11 @@ public class Main1Activity extends AppCompatActivity
         setContentView(R.layout.activity_main1);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        /*if(true) {
+            navigationView = (NavigationView) findViewById(R.id.nav_view);
+            Menu addPatientMenu = navigationView.getMenu();
+            addPatientMenu.findItem(R.id.addPatient).setEnabled(false);
+        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -67,7 +72,7 @@ public class Main1Activity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
-
+    //NavigationView navigationView;
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -77,11 +82,11 @@ public class Main1Activity extends AppCompatActivity
         if (id == R.id.addPatient) {
             AddPatient addPatient = new AddPatient();
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.relativelayout_for_fragment, addPatient).commit();
+            fragmentManager.beginTransaction().replace(R.id.relativelayout_for_fragment, addPatient, addPatient.getTag()).commit();
         } else if (id == R.id.addDisease) {
-            AddDisease addDisease = new AddDisease();
+            AddDisease addDisease = AddDisease.newInstance("1", "2");
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.relativelayout_for_fragment, addDisease).commit();
+            fragmentManager.beginTransaction().replace(R.id.relativelayout_for_fragment, addDisease, addDisease.getTag()).commit();
         } else if (id == R.id.logOut) {
             Intent intent = new Intent(Main1Activity.this, LoginActivity.class);
             startActivity(intent);
@@ -90,5 +95,10 @@ public class Main1Activity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        return;
     }
 }
