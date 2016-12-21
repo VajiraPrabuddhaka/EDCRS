@@ -29,22 +29,6 @@ import com.example.vajiraprabuddhaka.edcrs.R;
 import com.example.vajiraprabuddhaka.edcrs.data.control.Config;
 
 public class SearchActivity extends AppCompatActivity {
-    private EditText editTextId;
-    private Button buttonGet;
-    private TextView textViewResult;
-
-    private ProgressDialog loading;
-
-
-
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.options_menu, menu);
-
-        return true;
-    }*/
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

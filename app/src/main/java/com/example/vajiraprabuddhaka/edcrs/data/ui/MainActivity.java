@@ -82,8 +82,19 @@ public class MainActivity extends AppCompatActivity {
                 else
                 {
                     // Stay at the current activity.
-                    Intent intent = new Intent(MainActivity.this, ReportActivity.class);
-                    startActivity(intent);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setMessage("You are already logged in")
+                            .setCancelable(false)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    //do things
+                                    Intent intent = new Intent(MainActivity.this, Main1Activity.class);
+                                    startActivity(intent);
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+
                 }
 
             }
