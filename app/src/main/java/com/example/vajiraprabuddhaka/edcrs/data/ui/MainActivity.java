@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.vajiraprabuddhaka.edcrs.R;
+import com.example.vajiraprabuddhaka.edcrs.data.control.BackgroundService;
+import com.example.vajiraprabuddhaka.edcrs.data.control.MyService;
 import com.example.vajiraprabuddhaka.edcrs.data.control.SaveSharedPreference;
 
 
@@ -21,8 +23,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         search = (Button) findViewById(R.id.diseaseSearch);
          login = (Button) findViewById(R.id.login);
+
+
+
 
 
         search.setOnClickListener(new View.OnClickListener() {
@@ -75,12 +82,17 @@ public class MainActivity extends AppCompatActivity {
                 else
                 {
                     // Stay at the current activity.
-                    Intent intent = new Intent(MainActivity.this, Main1Activity.class);
+                    Intent intent = new Intent(MainActivity.this, ReportActivity.class);
                     startActivity(intent);
                 }
 
             }
         });
+
+
+        Intent inte = new Intent(this, MyService.class);
+        startService(inte);
+
 
 
     }

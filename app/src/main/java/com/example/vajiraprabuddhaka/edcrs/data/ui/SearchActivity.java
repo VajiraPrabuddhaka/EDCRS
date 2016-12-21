@@ -42,8 +42,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.options_menu, menu);
 
-
-
         return true;
     }
 

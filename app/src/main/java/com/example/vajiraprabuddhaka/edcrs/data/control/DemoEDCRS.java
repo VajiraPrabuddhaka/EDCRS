@@ -9,16 +9,22 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class DemoEDCRS extends EDCRS {
     private Context context;
+    private SQLiteDatabase mydatabase;
+
 
     public DemoEDCRS(Context context){
         this.context = context;
         setup();
     }
 
+    private SQLiteDatabase getMydatabase(){
+        return this.mydatabase;
+    }
+
     @Override
     public void setup() {
         //create Database
-        SQLiteDatabase mydatabase = context.openOrCreateDatabase("EDCRS", context.MODE_PRIVATE, null);
+        mydatabase = context.openOrCreateDatabase("EDCRS", context.MODE_PRIVATE, null);
 
         //create Epidemic disease table
         mydatabase.execSQL("CREATE TABLE IF NOT EXISTS epidemic_desease(" +
