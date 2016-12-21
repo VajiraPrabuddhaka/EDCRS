@@ -24,7 +24,11 @@ public class Main1Activity extends AppCompatActivity
         setContentView(R.layout.activity_main1);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        /*if(true) {
+            navigationView = (NavigationView) findViewById(R.id.nav_view);
+            Menu addPatientMenu = navigationView.getMenu();
+            addPatientMenu.findItem(R.id.addPatient).setEnabled(false);
+        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -67,7 +71,7 @@ public class Main1Activity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
-
+    //NavigationView navigationView;
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -79,12 +83,12 @@ public class Main1Activity extends AppCompatActivity
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.relativelayout_for_fragment, addPatient).commit();
         } else if (id == R.id.addDisease) {
-            AddDisease addDisease = new AddDisease();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.relativelayout_for_fragment, addDisease).commit();
+            //AddDisease addDisease = new AddDisease();
+            //FragmentManager fragmentManager = getSupportFragmentManager();
+            //fragmentManager.beginTransaction().replace(R.id.relativelayout_for_fragment, addDisease).commit();
         } else if (id == R.id.logOut) {
-            Intent intent = new Intent(Main1Activity.this, LoginActivity.class);
-            startActivity(intent);
+            //Intent intent = new Intent(Main1Activity.this, LoginActivity.class);
+            //startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -234,9 +234,9 @@ public class AddPatient extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
+        if (context instanceof OnFragmentInteractionListener){
             mListener = (OnFragmentInteractionListener) context;
-        } else {
+        } else{
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
