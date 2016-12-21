@@ -64,8 +64,8 @@ public class RegisterActivity extends AppCompatActivity {
                 pass = password1.getText().toString();
                 number = phone.getText().toString();
 
-                if(fname.getText().toString().isEmpty() || lname.getText().toString().isEmpty()){
-                    if(checkMail.isEmpty() || Patterns.EMAIL_ADDRESS.matcher(checkMail).matches()){
+                if(isAlpha(name)){
+                    if(!checkMail.isEmpty() || Patterns.EMAIL_ADDRESS.matcher(checkMail).matches()){
                         if(password1.getText() == password2.getText()){
                             if(officerID.getText() != docID.getText() && !nationalID.getText().toString().isEmpty()){
                                 if(doctor.isChecked()) id = docID.getText().toString();
@@ -125,5 +125,18 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
 
+    }
+    public boolean isAlpha(String s){
+        char[] chars = s.toCharArray();
+        int x=0;
+        for(char c : chars){
+            if(!Character.isLetter(c) || !Character.isSpaceChar(c)){
+                return false;
+            }
+            if(Character.isLetter(c)) x = 1;
+        }
+
+        if(x>0) return true;
+        return false;
     }
 }

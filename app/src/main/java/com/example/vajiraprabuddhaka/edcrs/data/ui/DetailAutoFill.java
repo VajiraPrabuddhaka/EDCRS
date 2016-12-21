@@ -29,5 +29,18 @@ public class DetailAutoFill {
     public void populateDistricts(){
         //get from sql
     }
+    public boolean isAlpha(String s){
+        char[] chars = s.toCharArray();
+        int x=0;
+        for(char c : chars){
+            if(!Character.isLetter(c) || !Character.isSpaceChar(c)){
+                return false;
+            }
+            if(Character.isLetter(c)) x = 1;
+        }
+
+        if(x>0) return true;
+        return false;
+    }
 
 }
