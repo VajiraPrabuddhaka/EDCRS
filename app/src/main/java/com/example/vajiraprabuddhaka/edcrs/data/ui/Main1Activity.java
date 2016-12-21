@@ -1,6 +1,7 @@
 package com.example.vajiraprabuddhaka.edcrs.data.ui;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
@@ -16,7 +17,7 @@ import android.view.MenuItem;
 import com.example.vajiraprabuddhaka.edcrs.R;
 
 public class Main1Activity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, AddDisease.OnFragmentInteractionListener, AddPatient.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,18 +82,23 @@ public class Main1Activity extends AppCompatActivity
         if (id == R.id.addPatient) {
             AddPatient addPatient = new AddPatient();
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.relativelayout_for_fragment, addPatient).commit();
+            fragmentManager.beginTransaction().replace(R.id.relativelayout_for_fragment, addPatient, addPatient.getTag()).commit();
         } else if (id == R.id.addDisease) {
-            //AddDisease addDisease = new AddDisease();
-            //FragmentManager fragmentManager = getSupportFragmentManager();
-            //fragmentManager.beginTransaction().replace(R.id.relativelayout_for_fragment, addDisease).commit();
+            AddDisease addDisease = AddDisease.newInstance("1", "2");
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.relativelayout_for_fragment, addDisease, addDisease.getTag()).commit();
         } else if (id == R.id.logOut) {
-            //Intent intent = new Intent(Main1Activity.this, LoginActivity.class);
-            //startActivity(intent);
+            Intent intent = new Intent(Main1Activity.this, LoginActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        return;
     }
 }
