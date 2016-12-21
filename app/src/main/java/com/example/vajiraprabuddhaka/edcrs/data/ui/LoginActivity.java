@@ -69,9 +69,6 @@ public class LoginActivity extends AppCompatActivity {
         String userName = username.getText().toString().trim();
         String passWord = password.getText().toString().trim();
 
-
-
-
                 if (userName.isEmpty()) {
                     username.setError("Please enter username");
                     Toast.makeText(LoginActivity.this, "Start", Toast.LENGTH_SHORT);
@@ -100,14 +97,28 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
-                if (response.equals("Login Successful!")) {
+                if (response.equals("1")) {
                     Toast.makeText(LoginActivity.this, "correct Password", Toast.LENGTH_LONG).show();
                     SaveSharedPreference.setUserName(LoginActivity.this, username);
-                    Intent myintent = new Intent(LoginActivity.this, Main1Activity.class);
-                    startActivity(myintent);
+                    Intent intent = new Intent(LoginActivity.this, Main1Activity.class);
+                    Bundle b = new Bundle();
+                    b.putInt("officer", 1);
+                    intent.putExtras(b);
+                    startActivity(intent);
+                    finish();
 
                 }
-                else{
+                else if(response.equals("2")){
+                    Toast.makeText(LoginActivity.this, "correct Password", Toast.LENGTH_LONG).show();
+                    SaveSharedPreference.setUserName(LoginActivity.this, username);
+                    Intent intent = new Intent(LoginActivity.this, Main1Activity.class);
+                    Bundle b = new Bundle();
+                    b.putInt("officer", 2);
+                    intent.putExtras(b);
+                    startActivity(intent);
+                    finish();
+                }
+                else {
                     Toast.makeText(LoginActivity.this, "Invalid login", Toast.LENGTH_LONG).show();
 
                 }

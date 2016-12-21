@@ -95,44 +95,47 @@ public class RegisterActivity extends AppCompatActivity {
                     if (!checkMail.isEmpty() || Patterns.EMAIL_ADDRESS.matcher(checkMail).matches()) {
                         if (pass.equals(conf)) {
                             if (officerID.getText() != docID.getText() && !nationalID.getText().toString().isEmpty()) {
-                                if (doctor.isChecked()) id = docID.getText().toString();
-                                else id = officerID.getText().toString();
-
-                                if (!pass.equals(conf)) {
-                                    password2.setError("Invalid conform password");
+                                if (doctor.isChecked()) {
+                                    registerOfficer(fname.getText().toString().trim(),
+                                            lname.getText().toString().trim(),
+                                            "1",
+                                            docID.getText().toString().trim(),
+                                            nationalID.getText().toString().trim(),
+                                            email.getText().toString().trim(),
+                                            phone.getText().toString().trim(),
+                                            password1.getText().toString().trim());
                                 }
-                                else{
 
-                                   RegisterDoctor(fname.getText().toString().trim(),
-                                                lname.getText().toString().trim(),
-                                                docID.getText().toString().trim(),
-                                                nationalID.getText().toString().trim(),
-                                                email.getText().toString().trim(),
-                                                phone.getText().toString().trim(),
-                                                password1.getText().toString().trim());
+                                else {
+                                    registerOfficer(fname.getText().toString().trim(),
+                                            lname.getText().toString().trim(),
+                                            "2",
+                                            officerID.getText().toString().trim(),
+                                            nationalID.getText().toString().trim(),
+                                            email.getText().toString().trim(),
+                                            phone.getText().toString().trim(),
+                                            password1.getText().toString().trim());
                                 }
-                                //controller.addOfficer or addDoc
-                                //controller.sendData
 
                             } else {
-                                Toast.makeText(getApplicationContext(), "Enter ID", Toast.LENGTH_SHORT).show();
+                                if(officerID.isEnabled()) officerID.setError("Please enter Officer Registration ID");
+                                else docID.setError("Please enter Doctor Registration ID");
                             }
                         } else {
                             password1.getText().clear();
                             password2.getText().clear();
-                            password1.setHintTextColor(Color.RED);
-                            password2.setHintTextColor(Color.RED);
-                            Toast.makeText(getApplicationContext(), "Passwords does not match", Toast.LENGTH_SHORT).show();
+                            password1.setError("Passwords does not match");
+                            password2.setError("Passwords does not match");
                         }
                     } else {
                         email.getText().clear();
-                        email.setHintTextColor(Color.RED);
-                        Toast.makeText(getApplicationContext(), "Enter a Valid Email", Toast.LENGTH_SHORT).show();
+                        email.setError("Enter a valid email address");
                     }
                 } else {
-                    fname.setHintTextColor(Color.RED);
-                    lname.setHintTextColor(Color.RED);
-                    Toast.makeText(getApplicationContext(), "Enter your name", Toast.LENGTH_SHORT).show();
+                    fname.getText().clear();
+                    lname.getText().clear();
+                    fname.setError("Invalid name! Check again");
+                    lname.setError("Check again");
                 }
             }
         });
@@ -183,7 +186,7 @@ public class RegisterActivity extends AppCompatActivity {
         return true;
     }
 
-    public void RegisterDoctor(final String fname, final String lname, final String doc_id, final String nic, final String email, final String mobile, final String pwd) {
+    public void registerOfficer(final String fname, final String lname,final String officer_type, final String officer_id, final String nic, final String email, final String mobile, final String pwd) {
         RequestQueue MyRequestQueue = Volley.newRequestQueue(this);
 
         StringRequest MyStringRequest = new StringRequest(Request.Method.POST, "http://192.168.153.1:100/EDCRS-PHP/registerDataPost.php", new Response.Listener<String>() {
@@ -213,13 +216,12 @@ public class RegisterActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> MyData = new HashMap<String, String>();
                 MyData.put("full_name", fname+" "+lname);
-                //MyData.put("lname", lname);
-                MyData.put("id", doc_id);
+                MyData.put("id", officer_id);
                 MyData.put("national_id", nic);
                 MyData.put("email", email);
-                MyData.put("mobile", mobile);
+                MyData.put("phone", mobile);
                 MyData.put("password", pwd);
-                MyData.put("type", "2");//Add the data you'd like to send to the server.
+                MyData.put("type", officer_type);//Add the data you'd like to send to the server.
                 return MyData;
             }
         };
