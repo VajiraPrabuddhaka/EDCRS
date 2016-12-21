@@ -35,6 +35,8 @@
         </activity>
         <activity android:name=".data.ui.LoginActivity" />
         <activity android:name=".data.ui.RegisterActivity" />
+        <activity android:name=".data.ui.ReportActivity" />
+
         <activity
             android:name=".data.ui.Main1Activity"
             android:label="@string/title_activity_main1"

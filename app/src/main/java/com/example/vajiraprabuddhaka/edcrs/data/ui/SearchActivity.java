@@ -49,9 +49,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        editTextId = (EditText) findViewById(R.id.editTextId);
-        buttonGet = (Button) findViewById(R.id.buttonGet);
-        textViewResult = (TextView) findViewById(R.id.textViewResult);
+        //editTextId = (EditText) findViewById(R.id.editTextId);
+       // buttonGet = (Button) findViewById(R.id.buttonGet);
+        //textViewResult = (TextView) findViewById(R.id.textViewResult);
 
         buttonGet.setOnClickListener(this);
     }
