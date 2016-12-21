@@ -38,10 +38,8 @@ public class AddPatient extends Fragment {
 
     private String[] districts;
     private String[] cities;
-    private String[] types;
     private String[] diseases;
 
-    private String currentType;
     private String currentDisease;
     private String currentDistrict;
     private String currentCity;
@@ -49,7 +47,6 @@ public class AddPatient extends Fragment {
     private DiseaseAutoFill diseaseAutoFill;
     private DetailAutoFill detailAutoFill;
 
-    private AutoCompleteTextView diseaseType;
     private AutoCompleteTextView diseaseName;
     private EditText patientName;
     private AutoCompleteTextView district;
@@ -94,7 +91,6 @@ public class AddPatient extends Fragment {
         View view = inflater.inflate(R.layout.fragment_add_patient, container, false);
 
         diseaseName = (AutoCompleteTextView) view.findViewById(R.id.diseaseName);
-        diseaseType = (AutoCompleteTextView) view.findViewById(R.id.diseaseType);
         patientName = (EditText) view.findViewById(R.id.fname);
         district = (AutoCompleteTextView) view.findViewById(R.id.district);
         city = (AutoCompleteTextView) view.findViewById(R.id.city);
@@ -102,24 +98,6 @@ public class AddPatient extends Fragment {
 
         diseaseAutoFill = new DiseaseAutoFill();
         diseaseAutoFill.populateTypes();
-
-        types = diseaseAutoFill.getTypes();
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>
-                (AddPatient.this.getActivity(), android.R.layout.simple_dropdown_item_1line, types);
-        diseaseType.setAdapter(adapter1);
-        diseaseType.setThreshold(1);
-
-        diseaseName.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                currentType = diseaseType.getText().toString();
-                if(currentType.equals("")){
-                    Toast.makeText(AddPatient.this.getActivity(), "Please enter a disease type", Toast.LENGTH_SHORT);
-                    diseaseType.setHintTextColor(Color.RED);
-                }
-
-            }
-        });
 
         diseaseAutoFill.populateDiseases();
         diseases = diseaseAutoFill.getDiseases();
@@ -141,10 +119,11 @@ public class AddPatient extends Fragment {
         city.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                currentDistrict = district.getText().toString();
-                if(currentDistrict.equals("") || Arrays.asList(districts).contains(currentDistrict)){
-                    Toast.makeText(AddPatient.this.getActivity(), "Please enter a valid District", Toast.LENGTH_SHORT);
+                currentDistrict = district.getText().toString().trim();
+                if(currentDistrict.isEmpty() || !Arrays.asList(districts).contains(currentDistrict)){
+                    Toast.makeText(AddPatient.this.getActivity(), "Please enter a valid District", Toast.LENGTH_SHORT).show();
                     district.getText().clear();
+                    city.getText().clear();
                     district.setHintTextColor(Color.RED);
                 }
 
@@ -184,12 +163,11 @@ public class AddPatient extends Fragment {
         addPatient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentDisease = diseaseName.getText().toString();
-                currentType = diseaseType.getText().toString();
-                currentDistrict = district.getText().toString();
-                currentCity = city.getText().toString();
+                currentDisease = diseaseName.getText().toString().trim();
+                currentDistrict = district.getText().toString().trim();
+                currentCity = city.getText().toString().trim();
                 try {
-                    Integer.getInteger(age.getText().toString());
+                    Integer.getInteger(age.getText().toString().trim());
                 }
                 catch (Exception e) {Toast.makeText(AddPatient.this.getActivity(), "Invalid Age. Only use numbers", Toast.LENGTH_SHORT).show();
                     age.getText().clear();
@@ -197,16 +175,18 @@ public class AddPatient extends Fragment {
                     age.setHint("Age (Eg: 22)");
                     return;}
 
-                if((currentDisease.equals("") || currentType.equals("")) && Integer.getInteger(age.getText().toString())<110){
-                    Toast.makeText(AddPatient.this.getActivity(), "Please enter a Disease and Type of disease", Toast.LENGTH_LONG).show();
+                if(currentDisease.isEmpty()){
+                    Toast.makeText(AddPatient.this.getActivity(), "Please enter a Disease", Toast.LENGTH_LONG).show();
                     diseaseName.setHintTextColor(Color.RED);
-                    diseaseType.setHintTextColor(Color.RED);
+                }
+                else if(Integer.getInteger(age.getText().toString())<110){
+                    age.getText().clear();
+                    Toast.makeText(AddPatient.this.getActivity(), "Please enter a Valid age in years", Toast.LENGTH_LONG).show();
                 }
                 else{
                     Toast.makeText(AddPatient.this.getActivity(), "Data Successfully Added", Toast.LENGTH_SHORT).show();
                     //send to sql
                     diseaseName.getText().clear();
-                    diseaseType.getText().clear();
                     age.getText().clear();
                     city.getText().clear();
                     district.getText().clear();
@@ -234,9 +214,9 @@ public class AddPatient extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
+        if (context instanceof OnFragmentInteractionListener){
             mListener = (OnFragmentInteractionListener) context;
-        } else {
+        } else{
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }

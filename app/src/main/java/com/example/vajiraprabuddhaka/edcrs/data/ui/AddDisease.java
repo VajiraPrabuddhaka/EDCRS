@@ -85,7 +85,7 @@ public class AddDisease extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_add_disease, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_disease, container, false);
 
         diseaseName = (AutoCompleteTextView) view.findViewById(R.id.diseaseName);
         district = (AutoCompleteTextView) view.findViewById(R.id.district);
@@ -106,16 +106,17 @@ public class AddDisease extends Fragment {
 
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>
                 (AddDisease.this.getActivity(), android.R.layout.simple_dropdown_item_1line, districts);
-        diseaseName.setAdapter(adapter2);
-        diseaseName.setThreshold(1);
+        district.setAdapter(adapter2);
+        district.setThreshold(1);
 
         city.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                currentDistrict = district.getText().toString();
-                if(currentDistrict.equals("") || Arrays.asList(districts).contains(currentDistrict)){
-                    Toast.makeText(AddDisease.this.getActivity(), "Please enter a valid District", Toast.LENGTH_SHORT);
+                currentDistrict = district.getText().toString().trim();
+                if(currentDistrict.isEmpty() && !Arrays.asList(districts).contains(currentDistrict)){
+                    Toast.makeText(AddDisease.this.getActivity(), "Please enter a valid District", Toast.LENGTH_SHORT).show();
                     district.getText().clear();
+                    city.getText().clear();
                     district.setHintTextColor(Color.RED);
                 }
 
@@ -133,12 +134,13 @@ public class AddDisease extends Fragment {
         addDisease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentDistrict = district.getText().toString();
-                currentCity = city.getText().toString();
-                currentDisease = diseaseName.getText().toString();
-                if(detailAutoFill.isAlpha(currentDistrict)){
+                currentDistrict = district.getText().toString().trim();
+                currentCity = city.getText().toString().trim();
+                currentDisease = diseaseName.getText().toString().trim();
+
+                if(detailAutoFill.isAlpha(currentDisease)){
                     if(detailAutoFill.isAlpha(currentCity)){
-                        if(detailAutoFill.isAlpha(currentDisease)){
+                        if(detailAutoFill.isAlpha(currentDistrict)){
                             //send to sql
                             district.getText().clear();
                             city.getText().clear();
@@ -146,9 +148,9 @@ public class AddDisease extends Fragment {
                             Toast.makeText(AddDisease.this.getActivity(), "Disease successfully added", Toast.LENGTH_SHORT).show();
                         }
                         else{
-                            diseaseName.getText().clear();
-                            diseaseName.setHintTextColor(Color.RED);
-                            Toast.makeText(AddDisease.this.getActivity(), "Please enter a correct Disease name", Toast.LENGTH_SHORT).show();
+                            district.getText().clear();
+                            district.setHintTextColor(Color.RED);
+                            Toast.makeText(AddDisease.this.getActivity(), "Please enter a correct District name from the dropdown list", Toast.LENGTH_LONG).show();
                         }
                     }
                     else {
@@ -158,9 +160,9 @@ public class AddDisease extends Fragment {
                     }
                 }
                 else {
-                    district.getText().clear();
-                    district.setHintTextColor(Color.RED);
-                    Toast.makeText(AddDisease.this.getActivity(), "Please enter a correct District name from the dropdown list", Toast.LENGTH_LONG).show();
+                    diseaseName.getText().clear();
+                    diseaseName.setHintTextColor(Color.RED);
+                    Toast.makeText(AddDisease.this.getActivity(), "Please enter a correct Disease name", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -178,9 +180,9 @@ public class AddDisease extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
+        if  (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
-        } else {
+        } else{
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
