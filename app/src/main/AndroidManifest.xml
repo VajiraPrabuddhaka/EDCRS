@@ -24,18 +24,21 @@
         <activity
             android:name="data.ui.LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".data.ui.SearchActivity" >
-            <meta-data android:name="android.app.searchable"
+        <activity android:name=".data.ui.SearchActivity">
+            <meta-data
+                android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
 
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-
         </activity>
         <activity android:name=".data.ui.LoginActivity" />
-        <activity android:name=".data.ui.Main1Activity"></activity>
         <activity android:name=".data.ui.RegisterActivity" />
+        <activity
+            android:name=".data.ui.Main1Activity"
+            android:label="@string/title_activity_main1"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
