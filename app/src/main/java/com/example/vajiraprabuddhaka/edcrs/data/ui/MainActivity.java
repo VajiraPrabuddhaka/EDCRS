@@ -23,14 +23,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        Intent i = new Intent(this, MyService.class);
+        startService(i);
 
         search = (Button) findViewById(R.id.diseaseSearch);
-         login = (Button) findViewById(R.id.login);
-
-
-
-
+        login = (Button) findViewById(R.id.login);
 
         search.setOnClickListener(new View.OnClickListener() {
             @Override
