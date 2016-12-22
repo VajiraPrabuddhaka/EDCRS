@@ -18,7 +18,7 @@ public class DBsyncControllerN {
         this.db = db;
     }
 
-    private void insertDiseases(HashMap<String, String> queryValues, String disease, String description, String disease_type) {
+    public void insertDiseases(HashMap<String, String> queryValues, String disease, String description, String disease_type) {
         ContentValues values = new ContentValues();
         values.put("disease_name", disease);
         values.put("description", description);
@@ -26,7 +26,7 @@ public class DBsyncControllerN {
         db.insert("users", null, values);
     }
 
-    private void insertPatients(HashMap<String, String> queryValues, String name, String age, String nationalID, String city, String district) {
+    public void insertPatients(HashMap<String, String> queryValues, String name, String age, String nationalID, String city, String district) {
         ContentValues values = new ContentValues();
         values.put("full_name", name);
         values.put("age", age);
@@ -36,7 +36,7 @@ public class DBsyncControllerN {
         db.insert("users", null, values);
     }
 
-    private ArrayList<HashMap<String, String>> getAllDiseases() {
+    public ArrayList<HashMap<String, String>> getAllDiseases() {
         ArrayList<HashMap<String, String>> diseasesList;
         diseasesList = new ArrayList<HashMap<String, String>>();
         String selectQuery = "SELECT  * FROM epidemic_diseases";
@@ -53,7 +53,7 @@ public class DBsyncControllerN {
         return diseasesList;
     }
 
-    private ArrayList<HashMap<String, String>> getAllPatients() {
+    public ArrayList<HashMap<String, String>> getAllPatients() {
         ArrayList<HashMap<String, String>> patientsList;
         patientsList = new ArrayList<HashMap<String, String>>();
         String selectQuery = "SELECT * FROM patients";

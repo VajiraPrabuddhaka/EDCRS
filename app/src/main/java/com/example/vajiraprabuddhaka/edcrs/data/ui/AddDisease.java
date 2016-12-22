@@ -1,6 +1,7 @@
 package com.example.vajiraprabuddhaka.edcrs.data.ui;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,8 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vajiraprabuddhaka.edcrs.R;
+import com.example.vajiraprabuddhaka.edcrs.data.control.DBsyncControllerN;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -52,6 +55,9 @@ public class AddDisease extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    private DBsyncControllerN controller;
+    private SQLiteDatabase db = getContext().openOrCreateDatabase("EDCRS", getContext().MODE_PRIVATE, null);
+
     public AddDisease() {
         // Required empty public constructor
     }
@@ -81,13 +87,16 @@ public class AddDisease extends Fragment {
             //mParam1 = getArguments().getString(ARG_PARAM1);
             //mParam2 = getArguments().getString(ARG_PARAM2);
         }
-    }
 
+    }
+    HashMap<String, String> diseaseList;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_disease, container, false);
+
+        controller = new DBsyncControllerN(db);
 
         diseaseName = (AutoCompleteTextView) view.findViewById(R.id.diseaseName);
         district = (AutoCompleteTextView) view.findViewById(R.id.district);
@@ -142,7 +151,10 @@ public class AddDisease extends Fragment {
                 if(detailAutoFill.isAlpha(currentDisease) && !diseaseName.getText().toString().isEmpty()){
                     if(detailAutoFill.isAlpha(currentCity) && !city.getText().toString().isEmpty()){
                         if(detailAutoFill.isAlpha(currentDistrict) && !district.getText().toString().isEmpty() && Arrays.asList(districts).contains(currentDistrict)){
-                            //send to sql
+                            diseaseList = new HashMap<String, String>();
+
+                            controller.insertDiseases(diseaseList, currentDisease, "", "");
+                            //TODO district and city
                             district.getText().clear();
                             city.getText().clear();
                             diseaseName.getText().clear();

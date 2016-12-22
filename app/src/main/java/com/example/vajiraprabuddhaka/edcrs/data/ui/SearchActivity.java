@@ -16,7 +16,7 @@ import android.widget.EditText;
 
 import com.example.vajiraprabuddhaka.edcrs.R;
 import com.example.vajiraprabuddhaka.edcrs.data.control.Config;
-import com.example.vajiraprabuddhaka.edcrs.data.control.DBsyncController;
+import com.example.vajiraprabuddhaka.edcrs.data.control.DBsyncControllerN;
 
 public class SearchActivity extends AppCompatActivity {
     Button diseaseContinue;
@@ -28,7 +28,7 @@ public class SearchActivity extends AppCompatActivity {
 
     DetailAutoFill autoFill;
 
-    DBsyncController controller;
+    DBsyncControllerN controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
