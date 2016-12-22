@@ -102,7 +102,7 @@ public class AddDisease extends Fragment {
         diseaseName.setThreshold(1);
 
         detailAutoFill = new DetailAutoFill();
-        detailAutoFill.populateDistricts();
+        detailAutoFill.populateDistricts(getContext());
         districts = detailAutoFill.getDistrict();
 
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>
@@ -123,7 +123,7 @@ public class AddDisease extends Fragment {
 
             }
         });
-        detailAutoFill.populateCities(currentDistrict);
+        detailAutoFill.populateCities(currentDistrict, getContext());
         cities = detailAutoFill.getCity();
 
         ArrayAdapter<String> adapter3 = new ArrayAdapter<String>
