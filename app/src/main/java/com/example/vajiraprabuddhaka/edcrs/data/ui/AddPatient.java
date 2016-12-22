@@ -19,8 +19,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.vajiraprabuddhaka.edcrs.R;
+import com.example.vajiraprabuddhaka.edcrs.data.control.DBsyncController;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,6 +68,8 @@ public class AddPatient extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    private DBsyncController dbController;
+
     public AddPatient() {
         // Required empty public constructor
     }
@@ -89,12 +93,15 @@ public class AddPatient extends Fragment {
         }*/
 
     }
+    HashMap<String, String> diseaseList = new HashMap<String, String>();
+    HashMap<String, String> patientsList = new HashMap<String, String>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_patient, container, false);
+        dbController = new DBsyncController(view.getContext());
 
         diseaseName = (AutoCompleteTextView) view.findViewById(R.id.diseaseName);
         patientName = (EditText) view.findViewById(R.id.fname);
@@ -182,7 +189,10 @@ public class AddPatient extends Fragment {
                         if(detailAutoFill.isAlpha(currentDistrict) && !district.getText().toString().isEmpty() && Arrays.asList(districts).contains(currentDistrict)){
                             if(detailAutoFill.isAlpha(currentName) && !patientName.getText().toString().isEmpty()
                                     && !currentAge.isEmpty() && !currentID.isEmpty() && currentID.length()>8){
-                                //send to sql
+                                HashMap<String, String> diseaseList = new HashMap<String, String>();
+                                HashMap<String, String> patientsList = new HashMap<String, String>();
+                                dbController.insertDiseases(diseaseList, currentDisease, details, "");
+                                dbController.insertPatients(patientsList, currentName, currentAge, currentID, currentCity, currentDistrict);
                                 district.getText().clear();
                                 city.getText().clear();
                                 diseaseName.getText().clear();
