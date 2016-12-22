@@ -86,7 +86,7 @@ public class ReportActivity extends AppCompatActivity {
         diseaseName.setThreshold(1);
 
         detailAutoFill = new DetailAutoFill();
-        detailAutoFill.populateDistricts();
+        detailAutoFill.populateDistricts(getApplicationContext());
         districts = detailAutoFill.getDistrict();
 
         ArrayAdapter<String> adapter3 = new ArrayAdapter<String>
@@ -107,7 +107,7 @@ public class ReportActivity extends AppCompatActivity {
             }
         });
 
-        detailAutoFill.populateCities(currentDistrict);
+        detailAutoFill.populateCities(currentDistrict, getApplicationContext());
         cities = detailAutoFill.getCity();
 
         ArrayAdapter<String> adapter4 = new ArrayAdapter<String>
