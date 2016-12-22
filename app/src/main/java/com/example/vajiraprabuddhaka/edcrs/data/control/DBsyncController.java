@@ -1,5 +1,6 @@
 package com.example.vajiraprabuddhaka.edcrs.data.control;
 
+import android.app.Application;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -7,11 +8,18 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Vajira Prabuddhaka on 12/21/2016.
@@ -153,5 +161,6 @@ public class DBsyncController extends SQLiteOpenHelper {
         database.execSQL(updateQuery);
         database.close();
     }
+
 
 }
